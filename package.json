@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "build": "./node_modules/parcel-bundler/bin/cli.js ./bin/www --out-dir ./build/"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "helmet": "^6.0.1",
+    "morgan": "~1.9.1",
+    "nodemailer": "^6.9.0",
+    "parcel-bundler": "^1.12.5"
+  }
+}
