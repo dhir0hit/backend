@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var nodemailer = require("nodemailer");
 const sendMail = (type, name, mailId, subject, body) => {
@@ -8,10 +8,9 @@ const sendMail = (type, name, mailId, subject, body) => {
     secure: true,
     auth: {
       user: "support@dhir0hit.com",
-      pass: "rohitdhir2002"
+      pass: "rohitdhir2002",
     },
   });
-
 
   if (type.toLowerCase() == "hiring") {
     // send mail with defined transport object
@@ -53,10 +52,8 @@ dhir0hit.com
     `,
     });
 
-  return info.messageId;
-
-  }
-  else {
+    return info.messageId;
+  } else {
     // send mail with defined transport object
     let info = transporter.sendMail({
       from: '"Rohit Dhir" <support@dhir0hit.com>',
@@ -96,17 +93,18 @@ dhir0hit.com
   <h3 style="font-weight: 500; font-family: monospace; margin: 0;">Full Stack Developer</h3>
   <a href="https://dhir0hit.com" style="font-weight: 500; font-family: monospace;">dhir0hit.com</a>
 </div>
-`,});
+`,
+    });
     return info.messageId;
   }
-}
+};
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", function (req, res, next) {
+  res.render("index", { title: "Express" });
 });
 
-router.post('/sendmail', function (req, res, next) {
+router.post("/sendmail", function (req, res, next) {
   // sendMail("rohit@dhir0hit.com", "nothing", "body body body");
   let mailType = req.body.type;
   let mailName = req.body.name;
@@ -114,53 +112,47 @@ router.post('/sendmail', function (req, res, next) {
   let mailSubject = req.body.subject;
   let mailBody = req.body.body;
 
-
   console.log(mailId);
-  if (
-      mailType !== "" &&
-      mailId   !== "" &&
-      mailBody !== ""
-  ) {
-    console.log("Everything filled 47")
+  if (mailType !== "" && mailId !== "" && mailBody !== "") {
+    console.log("Everything filled 47");
     /*
-    * If purpose of contact is not hiring and there is no subject ask for it
-    * */
+     * If purpose of contact is not hiring and there is no subject ask for it
+     * */
     console.log(mailType.toLowerCase() !== "hiring" && mailSubject === "");
-    if (mailType.toLowerCase() !== "hiring" && mailSubject === "")
-    {
+    if (mailType.toLowerCase() !== "hiring" && mailSubject === "") {
       res.send({
         state: 0,
         log: "Please Enter Appropriate Subject",
       });
     } else {
       /*
-      * If everything is filled
-      * */
+       * If everything is filled
+       * */
 
       /*
-      * checking if there is any error with mail sending
-      * */
-      console.log("sending")
-      console.log(sendMail(mailType, mailName, mailId, mailSubject, mailBody))
+       * checking if there is any error with mail sending
+       * */
+      console.log("sending");
+      console.log(sendMail(mailType, mailName, mailId, mailSubject, mailBody));
       res.send({
         state: 1,
         log: "message sent",
       });
     }
   } else {
-    console.log("not everything filled 73")
+    console.log("not everything filled 73");
     /*
-    * If something is missing ether type or mailID or MailBody
-    * */
+     * If something is missing ether type or mailID or MailBody
+     * */
     let log = "Please enter ";
-    if (mailType === "" || mailType.toLowerCase() === "purpose of contact" ) {
+    if (mailType === "" || mailType.toLowerCase() === "purpose of contact") {
       log += "Purpose of Contact, ";
     }
     if (mailId === "") {
-      log += "Email Address, "
+      log += "Email Address, ";
     }
     if (mailBody === "") {
-      log += "Body, "
+      log += "Body, ";
     }
 
     log += "and try again";
@@ -169,7 +161,6 @@ router.post('/sendmail', function (req, res, next) {
       log: log,
     });
   }
-})
-
+});
 
 module.exports = router;
